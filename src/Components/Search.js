@@ -29,7 +29,7 @@ const Search = () => {
       <div key={result.pageid} className="item">
         <div className="content">
           <div className="header">{result.title}</div>
-          {result.snippet}
+          <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
         </div>
       </div>
     );
@@ -49,3 +49,7 @@ const Search = () => {
 };
 
 export default Search;
+
+//anytime u take a string from a 3rd party,you could be introducing a security hole into your application.specifically a type of security hole called XSS attack.
+//xss attack = cross site scripting attack.
+// where we accidently pick up and render some HTML from an untrusted source that can allow some hacked or otherwise a malicious person to execute some JS inside of our application. which is veryyyy bad.
