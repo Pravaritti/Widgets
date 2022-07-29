@@ -5,7 +5,7 @@ const Search = () => {
   const [term, setTerm] = useState("programming"); //have to put default search term otherwise it will throw an error because it will be grenderingat empty string.
   const [results, setResults] = useState([]);
 
-  //console.log(results);
+  console.log(results);
 
   useEffect(() => {
     const search = async () => {
@@ -18,11 +18,22 @@ const Search = () => {
           srsearch: term,
         },
       });
-
-      setResults(data); // we set result with data returned by axios' get request and it causes our component to rerender.
+      //console.log(data);
+      setResults(data.query.search); //this is an array. data is complete object. // we set result with data returned by axios' get request and it causes our component to rerender.
     };
     search();
   }, [term]);
+
+  const renderedResults = results.map((result) => {
+    return (
+      <div key={result.pageid} className="item">
+        <div className="content">
+          <div className="header">{result.title}</div>
+          {result.snippet}
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div>
@@ -32,6 +43,7 @@ const Search = () => {
           <input value={term} onChange={(e) => setTerm()} className="input" />
         </div>
       </div>
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
