@@ -21,7 +21,10 @@ const Search = () => {
       //console.log(data);
       setResults(data.query.search); //this is an array. data is complete object. // we set result with data returned by axios' get request and it causes our component to rerender.
     };
-    search();
+    if (term) {
+      search();
+      //search only if there is something in search bar. else do not do anything
+    }
   }, [term]);
 
   const renderedResults = results.map((result) => {
