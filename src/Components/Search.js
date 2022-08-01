@@ -21,9 +21,22 @@ const Search = () => {
       //console.log(data);
       setResults(data.query.search); //this is an array. data is complete object. // we set result with data returned by axios' get request and it causes our component to rerender.
     };
-    if (term) {
+
+    if (term && !results.length) {
+      //this means its our first render and we do not want settimeout
       search();
-      //search only if there is something in search bar. else do not do anything
+    } else {
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          search();
+          //search only if there is something in search bar. else do not do anything
+        }
+      }, 500);
+
+      //return a cleanup function from useEffect that is going to cancel the pervios timeoutId.
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }
   }, [term]);
 
@@ -52,7 +65,11 @@ const Search = () => {
       <div className="ui form">
         <div className="field">
           <label> Enter Search Term</label>
-          <input value={term} onChange={(e) => setTerm()} className="input" />
+          <input
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+            className="input"
+          />
         </div>
       </div>
       <div className="ui celled list">{renderedResults}</div>
