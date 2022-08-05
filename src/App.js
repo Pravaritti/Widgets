@@ -50,6 +50,7 @@ export default () => {
           options={options}
         />
       ) : null}
+      {/*<Search />*/}
     </div>
   );
 };

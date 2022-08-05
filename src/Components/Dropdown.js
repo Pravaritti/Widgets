@@ -5,16 +5,20 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
   const ref = useRef();
 
   useEffect(() => {
-    //event listener
-    document.body.addEventListener("click", (event) => {
-      console.log(event.target);
-
+    const onBodyClick = (event) => {
       //to close dropdown on click on options or outside
       if (ref.current.contains(event.target)) {
         return;
       }
       setOpen(false);
-    });
+    };
+
+    //event listener
+    document.body.addEventListener("click", onBodyClick);
+
+    return () => {
+      document.body.removeEventListener("click", onBodyClick);
+    };
   }, []);
 
   const renderedOptions = options.map((option) => {
