@@ -4,6 +4,7 @@ import Search from "./Components/Search";
 import Dropdown from "./Components/Dropdown";
 import Translate from "./Components/Translate";
 import Route from "./Components/Route";
+import Header from "./Components/Header";
 
 const items = [
   {
@@ -74,6 +75,7 @@ export default () => {
 
   return (
     <div>
+      <Header />
       <Route path="/">
         <Accordion items={items} />
         {/*whenever we provide one JSX tag inside of anpther JSX tag, inner element is provided to outer one as a prop called 'chidren' */}
